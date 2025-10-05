@@ -1,10 +1,10 @@
-FROM node:18-alpine AS base
+FROM node:18-alpine
 
 WORKDIR /app
 
 
 COPY package.json ./
-RUN pnpm install
+RUN npm install -g pnpm
 
 # FROM node:18-alpine AS base
 # RUN corepack enable
