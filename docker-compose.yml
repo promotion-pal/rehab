@@ -1,40 +1,3 @@
-# services:
-#   postgres:
-#     image: postgres:15
-#     container_name: rehab-bd
-#     restart: unless-stopped
-#     env_file:
-#       - .env
-#     ports:
-#       - "${POSTGRES_PORT}:5432"
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data
-#     networks:
-#       - traefik-network
-
-#   app:
-#     build:
-#       context: .
-#       dockerfile: Dockerfile
-#     container_name: rehab
-#     restart: unless-stopped
-#     labels:
-#       - "traefik.enable=true"
-#       - "traefik.http.routers.rehab-secure.rule=Host(`rehab.promotion-pal.ru`)"
-#       - "traefik.http.routers.rehab-secure.entrypoints=websecure"
-#       - "traefik.http.routers.rehab-secure.tls.certresolver=letsencrypt"
-#       - "traefik.http.services.rehab.loadbalancer.server.port=3000"
-#     networks:
-#       - traefik-network
-
-# volumes:
-#   postgres_data:
-
-# networks:
-#   traefik-network:
-#     external: true
-#     name: traefik-network
-
 version: "3.8"
 
 services:
@@ -47,7 +10,7 @@ services:
     ports:
       - "${POSTGRES_PORT}:5432"
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data # Локальная директория
+      - ./postgres_data:/var/lib/postgresql/data
     networks:
       - traefik-network
     environment:
