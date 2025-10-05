@@ -1,3 +1,11 @@
+FROM node:18-alpine AS base
+
+WORKDIR /app
+
+
+COPY package.json ./
+RUN pnpm install
+
 # FROM node:18-alpine AS base
 # RUN corepack enable
 
@@ -6,7 +14,7 @@
 # WORKDIR /app
 
 # COPY package.json pnpm-lock.yaml* ./
-# RUN pnpm install --no-frozen-lockfile
+# RUN pnpm install 
 
 # FROM base AS builder
 # WORKDIR /app
@@ -99,55 +107,3 @@
 # # ENV HOSTNAME="0.0.0.0"
 
 # # CMD sh -c "pnpm prisma migrate deploy && node server.js"
-
-FROM node:18-alpine AS base
-RUN corepack enable
-
-FROM base AS deps
-RUN apk add --no-cache libc6-compat openssl
-WORKDIR /app
-
-COPY package.json pnpm-lock.yaml* ./
-RUN pnpm install --frozen-lockfile
-
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-# Копируем Prisma отдельно и генерируем клиент
-COPY prisma ./prisma/
-RUN pnpm exec prisma generate
-
-RUN pnpm run build
-
-FROM base AS runner
-WORKDIR /app
-
-ENV NODE_ENV=production
-
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
-
-# Копируем необходимые файлы для Prisma
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/package.json ./package.json
-
-# Копируем собранное приложение
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# Устанавливаем Prisma локально в проект (не глобально)
-RUN pnpm add prisma
-
-USER nextjs
-
-EXPOSE 3000
-
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-
-# Используем pnpm exec для запуска prisma
-CMD sh -c "sleep 5 && pnpm exec prisma migrate deploy && node server.js"
