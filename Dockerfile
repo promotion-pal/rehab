@@ -2,9 +2,24 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-
 COPY package.json ./
 RUN npm install -g pnpm
+
+RUN pnpm install
+
+WORKDIR /app
+COPY . .
+
+COPY prisma ./prisma/
+
+RUN pnpm exec prisma migrate deploy
+
+RUN pnpm exec prisma generate
+RUN ls -la node_modules/.prisma/client && \
+    echo "Prisma client generated successfully"
+
+
+
 
 # FROM node:18-alpine AS base
 # RUN corepack enable
