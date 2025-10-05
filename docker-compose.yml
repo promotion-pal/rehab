@@ -1,4 +1,17 @@
 services:
+  postgres:
+    image: postgres:15
+    container_name: rehab-bd
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - traefik-network
+
   app:
     build:
       context: .
