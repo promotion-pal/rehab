@@ -11,7 +11,6 @@ COPY prisma ./prisma/
 RUN pnpm install --no-frozen-lockfile
 
 RUN pnpm prisma generate
-RUN npx prisma migrate dev --name test  
 
 FROM base AS builder
 WORKDIR /app
