@@ -34,36 +34,20 @@ export const siteConfig = {
   ],
   navMenuItems: [
     {
+      label: "О нас",
+      href: "/about",
+    },
+    {
+      label: "Программы",
+      href: "/programs",
+    },
+    {
+      label: "Контакты",
+      href: "/contacts",
+    },
+    {
       label: "Статьи",
       href: "/article",
-    },
-    {
-      label: "Dashboard",
-      href: "/dashboard",
-    },
-    {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
-      label: "Team",
-      href: "/team",
-    },
-    {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
     },
   ],
   links: {
