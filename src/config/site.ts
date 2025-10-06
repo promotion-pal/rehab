@@ -6,7 +6,7 @@ export const siteConfig = {
     phone: "+79941387422",
   },
   partners: {
-    name: "",
+    name: "Prom Pal",
     web: "",
   },
   meta: {
@@ -19,7 +19,10 @@ export const siteConfig = {
       label: "О нас",
       href: "/about",
     },
-
+    {
+      label: "Программы",
+      href: "/programs",
+    },
     {
       label: "Контакты",
       href: "/contacts",
