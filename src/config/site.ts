@@ -1,24 +1,32 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Next.js + HeroUI",
-  description: "Make beautiful websites regardless of your design experience.",
+  company: {
+    name: "Рехаб",
+    phone: "+79941387422",
+  },
+  partners: {
+    name: "",
+    web: "",
+  },
+  meta: {
+    name: "Реабилитационный центр гор. Хабаровск",
+    description:
+      "Make beautiful websites regardless of your design experience.",
+  },
   navItems: [
-    {
-      label: "Статьи",
-      href: "/article",
-    },
-    {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
     {
       label: "О нас",
       href: "/about",
+    },
+
+    {
+      label: "Контакты",
+      href: "/contacts",
+    },
+    {
+      label: "Статьи",
+      href: "/article",
     },
   ],
   navMenuItems: [
